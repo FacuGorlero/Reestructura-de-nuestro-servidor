@@ -1,9 +1,9 @@
 // Requiere el módulo 'passport' y el DAO (Objeto de Acceso a Datos) para usuarios en MongoDB
 const passport = require("passport");
-const { UserMongo } = require('../Daos-Mongo/mongo/user.daomongo');
+const UsersController  = require('../controller/users.controller');
 
 // Crea una instancia del DAO para usuarios en MongoDB
-const Control = new UserMongo();
+const Control = new UsersController();
 
 // Middleware para la autenticación de usuarios desde el frontend
 const handleAuthFront = (policies) => {

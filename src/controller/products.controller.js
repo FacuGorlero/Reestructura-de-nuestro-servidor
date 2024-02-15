@@ -1,6 +1,6 @@
 const { ProductMongo} = require('../Daos-Mongo/mongo/products.daomongo');
 const {convertSort, convertAvailability, checkCategory } = require('../helper/mongohelpers');
-const validateFields = require('../utils/validatefields');
+const {validateFields} = require('../utils/validatefields');
 
 
 class ProductsController {

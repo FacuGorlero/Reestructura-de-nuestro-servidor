@@ -43,6 +43,7 @@ class SessionsController {
         res.renderPage("register", "Nuevo Registro", { answer: error.message });
       } else {
         res.renderPage("register", "Nuevo Registro", { answer: 'Ocurrió un error, vuelva a intentarlo' });
+        console.log(error.message);
       }
     }
   };  // Respuesta Visual
@@ -90,8 +91,9 @@ class SessionsController {
       }
 
       // Verificar si el usuario existe y la contraseña es válida
-      const userFound = await users.getUserByMail(userData.email);
-      if (!userFound || isValidPassword(createHash(userData.password), userFound)) {
+      const userFound = await userService.getUserByMail(userData.email);
+      if (!userFound || !userFound._id || isValidPassword(createHash(userData.password), userFound)) {
+
         throw new CustomError(`Email o contraseña equivocado`);
       }
 
@@ -118,7 +120,11 @@ class SessionsController {
 
   // Método para cerrar sesión
   logout = (req, res) => {
-    res.clearCookie('token').redirect('/');
+    if (req.user) {
+      res.clearCookie('token').redirect('/');
+    } else {
+      res.redirect('/');
+    }
   };
 
   // Método para manejar la autenticación con GitHub (por implementar)

@@ -3,6 +3,7 @@ const {program} = require('./commander.js')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+const {connect} = require ('mongoose')
 
 
 const opts = program.opts();
@@ -23,12 +24,7 @@ const configObject = {
     development: opts.mode == 'development',
 
     connectDB: async () => {
-        try {
-            await mongoose.connect(process.env.MONGO_URL, );
-            console.log('Base de datos conectada');
-        } catch (error) {
-            console.error('Error al conectar a la base de datos:', error.message);
-        }
+        MongoSingleton.getInstance();
     },
     sessionAtlas: (app) => {
         app.use(
@@ -64,4 +60,4 @@ class MongoSingleton {
     }
   }
 
-module.exports = {configObject}
+module.exports = {configObject, MongoSingleton}

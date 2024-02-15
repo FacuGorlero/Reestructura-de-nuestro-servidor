@@ -23,15 +23,11 @@ const validateFields = (fields, requiredFields) => {
     // Si hay campos faltantes, lanza un error utilizando la clase CustomError
     if (missingFields.length > 0) {
       throw new CustomError(
-        `ERROR: Debe completar los siguientes campos: ${missingFields.join(', ')}`,
-        400,
-        'validateFields'
-      );
+        `ERROR: Debe completar los siguientes campos: ${missingFields.join(', ')}`, );
     }
-  
     // Devuelve el objeto con los campos presentes y sus valores
     return correctObject;
   };
   
   // Exporta la función validateFields como módulo
-  module.exports= {validateFields,}
+  module.exports= {validateFields}

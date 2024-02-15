@@ -1,6 +1,6 @@
 // Importaciones
 //const { ObjectId } = require('bson');
-const { productModel } = require('./Models/products.model');  // Importa el modelo de productos
+const { productModel } = require('./Models/products.model.js');  // Importa el modelo de productos
 
 class ProductDaoMongo {
   constructor() {
@@ -10,7 +10,6 @@ class ProductDaoMongo {
   getProducts = async (query, options) => await this.model.paginate(query, options);
 
   getProductsById = async (pid) => await this.model.findById({ _id: pid }).lean();
-
 
   addProduct = async (fields) => await this.model.create(fields);
 

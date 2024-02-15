@@ -41,7 +41,7 @@ userSchema.pre('find', function () {
   
   userSchema.plugin(mongososePaginate)
 
-const userModel = model('usuarios', userSchema)
+const userModel = model('users', userSchema)
 
 module.exports = {
     userModel

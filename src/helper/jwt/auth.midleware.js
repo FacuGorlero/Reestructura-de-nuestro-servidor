@@ -1,6 +1,28 @@
 const { CustomError } = require('../../utils/error');
 const {renderPage} = require('../../helper/responses.js');
 
+
+// AUTORIZACION TOKEN - SIN PASSPORT
+// ------------------------------------------------------------------------------------
+ const authenticationToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) resError(res, 401, "No authenticaded", "jwt-authToken")
+  
+  const token = authHeader.split(" ")[1];
+  jwt.verify(token, JWT_PRIVATE_KEY, (err, userDecode) => {
+    if (err) resError(res, 401, "Unauthorized", "jwt-authToken")
+    req.user = userDecode;
+    next();
+  });
+
+  renderPage(res,"register","Nuevo Registro",{control: {answer: error.message }});
+};
+// TOKEN COOKIES
+// ------------------------------------------------------------------------------------
+
+authorization( ['USER', 'USER_PREMUIM'] )
+
 // Define la función authorizationJwt que toma un array de roles como argumento
 const authorizationJwt = (roleArray) => {
     // Devuelve un middleware que se ejecutará en las solicitudes
@@ -30,4 +52,4 @@ const authorizationJwt = (roleArray) => {
   };
   
   // Exporta la función authorizationJwt como exportación predeterminada
-  module.exports = {authorizationJwt};
+  module.exports = {authorizationJwt, authenticationToken};

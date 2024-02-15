@@ -49,7 +49,7 @@ passport.use("jwt", new JWTStrategy(
       console.log(profile);
 
       // Verificar si el usuario ya existe en la base de datos
-      let user = await userService.getUserBy({ email: profile._json.email });
+      let user = await userService.getUserByMail({ email: profile._json.email });
 
       if (!user) {
         // Si no existe, crear un nuevo usuario con información de GitHub

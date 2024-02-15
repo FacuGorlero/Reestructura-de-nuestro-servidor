@@ -90,7 +90,23 @@ class CartsController {
   
     // Otros métodos siguen el mismo patrón: manejan solicitudes relacionadas con carritos y productos
     // ...
+    decreaseProductQuantityById = async (req, res) => {
+      try {
+        const { cid, pid } = req.params;
+    
+        const cart = await this.service.getCartsById(cid);
+        if (!cart) return res.sendNotFound('Carrito no encontrado');
+    
+        const product = await products.getProductsById(pid);
+        if (!product) return res.sendNotFound('Producto no encontrado');
+    
+        const updatedCart = await this.service.decreaseProductQuantity(cid, pid);
   
+        res.sendSuccess(updatedCart)
+      } catch (error) {
+        res.sendCatchError(error)
+      }
+    }
     // Actualiza la cantidad de un producto en el carrito
     updateProductQuantity = async (req, res) => {
       try {
@@ -138,7 +154,7 @@ class CartsController {
         res.sendCatchError(error);
       }
     }
-  
+   
     // Actualiza los productos en el carrito
     updateProducts = async (req, res) => {
       try {

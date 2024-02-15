@@ -1,4 +1,4 @@
-// responseUtils.js
+
 
 // Define las opciones de las cookies
 const cookiesoptions = {

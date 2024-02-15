@@ -8,12 +8,13 @@ const handlebars = require('express-handlebars');
 
 const {AppRouter} = require('./routes/index.js');
 
-
+const {program} = require('./config/commander.js');
 const passport = require('passport');
 const {initializePassport} = require('./config/passport.config.js');
 
 
-
+const {mode} = program.opts();
+console.log('Mode config: ' + mode);
 
 
 configObject.connectDB()
